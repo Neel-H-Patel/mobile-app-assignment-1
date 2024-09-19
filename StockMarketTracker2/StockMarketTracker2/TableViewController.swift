@@ -29,25 +29,47 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if section == 0 {
+            // need to set this equal to the number of stocks in stockNames array
+            return 3
+        }
+        // need to set this eqaul to number of sectors in sectors array
         return 3
         // return count from API
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StockNameCell", for: indexPath)
-        let names = ["bob", "jeff", "bill"]
+        
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StockNameCell", for: indexPath)
+            
+            
+            let names = ["bob", "jeff", "bill"]
 
-        if let name = names[indexPath.row] as? String {
-            cell.textLabel!.text = name
+            if let name = names[indexPath.row] as? String {
+                cell.textLabel!.text = name
+            }
+            // Configure the cell...
+
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MarketInfoCell", for: indexPath)
+            
+            
+            let names = ["finance", "technology", "services"]
+
+            // need to pass in the market sector names, we might need to create a new model for market info, not sure right now but may be a good idea to keep code clean
+            if let name = names[indexPath.row] as? String {
+                cell.textLabel!.text = name
+            }
+            // Configure the cell...
+
+            return cell
         }
-        // Configure the cell...
-
-        return cell
     }
 
 

@@ -9,18 +9,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var stockName = "Google"
-    
-    lazy var stockModel:StockModel = {
+    // lazily instantiate our stock model so that it is only initailzed when
+    // someone asks for it
+    lazy var stockModel = {
         return StockModel.sharedInstance()
     }()
     
     
     @IBOutlet weak var StockNameLabel: UILabel!
+    
+    var stockName = "Google"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        StockNameLabel.text = stockName
+        self.StockNameLabel.text = self.stockModel.getStockInfo(withName: stockName)
     }
     
     
