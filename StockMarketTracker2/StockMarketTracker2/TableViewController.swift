@@ -29,17 +29,24 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        switch section {
+        case 0:
             // need to set this equal to the number of stocks in stockNames array
             return 3
+        case 1:
+            // need to set this eqaul to number of sectors in sectors array
+            return 3
+        case 2:
+            // just the About page cell. Always 1
+            return 1
+        default:
+            print("out of range table section provided")
+            return 0
         }
-        // need to set this eqaul to number of sectors in sectors array
-        return 3
-        // return count from API
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,7 +63,7 @@ class TableViewController: UITableViewController {
             // Configure the cell...
 
             return cell
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MarketInfoCell", for: indexPath)
             
             
@@ -68,6 +75,13 @@ class TableViewController: UITableViewController {
             }
             // Configure the cell...
 
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AboutPageCell", for: indexPath)
+            
+            cell.textLabel!.text = "About"
+            
             return cell
         }
     }
