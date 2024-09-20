@@ -1,0 +1,9 @@
+//
+//  .gitignore
+//  StockMarketTracker2
+//
+//  Created by Lyle Dev, Loaner on 9/19/24.
+//
+*.DS_Store
+/lyldev
+*/.xcuserdatad
