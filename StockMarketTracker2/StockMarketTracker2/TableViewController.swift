@@ -55,7 +55,7 @@ class TableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StockNameCell", for: indexPath)
             
             
-            let names = ["bob", "jeff", "bill"]
+            let names = ["AAPL", "NVDA", "META"]
 
             if let name = names[indexPath.row] as? String {
                 cell.textLabel!.text = name

@@ -45,10 +45,31 @@
     return image;
 }
 
--(NSString*)getStockInfoWithName:(NSString*)name{
-    // call the API here and get the stock info to return, format it as needed, maybe we need to create an NSArray to store variables for it, or we do that in the ViewController, not sure
-    
-    return @"This is just placeholder text for now";
+- (void)getStockPriceWithName:(NSString *)stockName completion:(void (^)(NSString *stockPrice))completion {
+    NSString *apiKey = @"cro2rthr01qv7t46ovogcro2rthr01qv7t46ovp0";
+    NSString *urlString = [NSString stringWithFormat:@"https://finnhub.io/api/v1/quote?symbol=%@&token=%@", stockName, apiKey];
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    // Create a data task
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+        NSString *stockPrice = @"Price not available";
+        if (data) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSNumber *currentPrice = json[@"c"];
+            
+            if (currentPrice) {
+                stockPrice = [NSString stringWithFormat:@"$%.2f", [currentPrice doubleValue]];
+            }
+        }
+
+        // Call the completion handler on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(stockPrice);
+            }
+        });
+    }];
+    [task resume];
 }
 
 @end

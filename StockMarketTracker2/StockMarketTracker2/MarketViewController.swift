@@ -19,7 +19,9 @@ class MarketViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.marketViewButton.titleLabel?.text = self.stockModel.getStockInfo(withName: stockName)
+        self.stockModel.getStockPrice(withName: self.stockName) { stockPrice in
+            self.marketViewButton.titleLabel?.text = stockPrice
+            }
         
         // Do any additional setup after loading the view.
     }

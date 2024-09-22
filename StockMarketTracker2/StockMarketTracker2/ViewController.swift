@@ -33,9 +33,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
         
-        var stockInfo = self.stockModel.getStockInfo(withName: stockName)
-        
-        // unpack stockInfo, assigning the data to UI elemnts
+        self.stockModel.getStockPrice(withName: self.stockName) { stockPrice in
+            self.StockPriceLabel.text = stockPrice
+            self.StockSymbolLabel.text = self.stockName
+            }
     }
     
     @objc func timerCounter() -> Void

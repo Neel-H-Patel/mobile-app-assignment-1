@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(UIImage*)getStockImageWithName:(NSString*)name;
 
--(NSString*)getStockInfoWithName:(NSString*)name;
+- (void)getStockPriceWithName:(NSString *)stockName completion:(void (^)(NSString *stockPrice))completion;
 
 @property (strong, nonatomic) NSArray* stockNames;
 
