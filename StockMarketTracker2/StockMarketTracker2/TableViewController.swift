@@ -67,7 +67,7 @@ class TableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MarketInfoCell", for: indexPath)
             
             
-            let names = ["finance", "technology", "services"]
+            let names = ["technology", "business", "top news"]
 
             // need to pass in the market sector names, we might need to create a new model for market info, not sure right now but may be a good idea to keep code clean
             if let name = names[indexPath.row] as? String {

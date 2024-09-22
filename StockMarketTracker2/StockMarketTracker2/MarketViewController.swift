@@ -13,7 +13,7 @@ class MarketViewController: UIViewController {
         return StockModel.sharedInstance()
     }()
     
-    var stockName = "Netflix"
+    var stockName = "error loading stock info"
 
     @IBOutlet weak var marketViewButton: UIButton!
     override func viewDidLoad() {
