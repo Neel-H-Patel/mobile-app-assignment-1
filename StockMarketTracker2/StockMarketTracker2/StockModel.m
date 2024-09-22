@@ -114,4 +114,26 @@
     [task resume];
 }
 
+- (void)getStockFullNameWithName:(NSString *)stockName completion:(void (^)(NSString *stockFullName))completion {
+    NSString *apiKey = @"cro2rthr01qv7t46ovogcro2rthr01qv7t46ovp0";
+    NSString *urlString = [NSString stringWithFormat:@"https://finnhub.io/api/v1/stock/profile2?symbol=%@&token=%@", stockName, apiKey];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *stockFullName = @"Name not available";
+        if (data && !error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            stockFullName = json[@"name"];
+        }
+        
+        // Call the completion handler on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(stockFullName);
+            }
+        });
+    }];
+    [task resume];
+}
+
 @end

@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getStockPriceChangeWithName:(NSString *)stockName completion:(void (^)(NSString *priceChange))completion;
 
+- (void)getStockFullNameWithName:(NSString *)stockName completion:(void (^)(NSString *stockFullName))completion;
+
 
 @property (strong, nonatomic) NSArray* stockNames;
 

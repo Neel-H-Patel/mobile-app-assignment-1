@@ -53,6 +53,10 @@ class ViewController: UIViewController {
                         self.StockPriceChangeLabel.textColor = .black
                     }
             }
+        
+        self.stockModel.getStockFullName(withName: self.stockName) { stockFullName in
+            self.StockNameLabel.text = stockFullName
+            }
     }
     
     @objc func timerCounter() -> Void
