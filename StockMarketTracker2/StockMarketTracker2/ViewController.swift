@@ -37,6 +37,22 @@ class ViewController: UIViewController {
             self.StockPriceLabel.text = stockPrice
             self.StockSymbolLabel.text = self.stockName
             }
+        
+        self.stockModel.getStockPriceChange(withName: self.stockName) { stockPriceChange in
+            self.StockPriceChangeLabel.text = stockPriceChange
+            
+            let firstChar = stockPriceChange.first!
+                    
+                    // Set color based on the first character
+                    if firstChar == "+" {
+                        self.StockPriceChangeLabel.textColor = .systemGreen
+                    } else if firstChar == "-" {
+                        self.StockPriceChangeLabel.textColor = .systemRed
+                    } else {
+                        // Optional: Handle cases where there's no sign (e.g., "0.00 (0.00%)")
+                        self.StockPriceChangeLabel.textColor = .black
+                    }
+            }
     }
     
     @objc func timerCounter() -> Void

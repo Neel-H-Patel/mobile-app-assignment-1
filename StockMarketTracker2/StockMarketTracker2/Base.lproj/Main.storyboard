@@ -209,7 +209,7 @@
                     <navigationItem key="navigationItem" id="dwt-ng-l5G"/>
                     <connections>
                         <outlet property="StockNameLabel" destination="TGa-YY-1HY" id="FUE-ih-sxY"/>
-                        <outlet property="StockPriceChangeLabel" destination="pXN-k5-dxB" id="tQZ-aM-snX"/>
+                        <outlet property="StockPriceChangeLabel" destination="ODU-xy-JWT" id="tX0-Tj-OnM"/>
                         <outlet property="StockPriceLabel" destination="bmZ-EJ-TvC" id="jEN-ry-3kP"/>
                         <outlet property="StockProfileImageView" destination="IST-BY-FfO" id="7Xs-VC-fE5"/>
                         <outlet property="StockSymbolLabel" destination="xmP-gA-Ks0" id="Okn-df-uYt"/>
@@ -257,7 +257,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

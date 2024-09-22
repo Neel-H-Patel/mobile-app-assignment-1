@@ -72,4 +72,46 @@
     [task resume];
 }
 
+- (void)getStockPriceChangeWithName:(NSString *)stockName completion:(void (^)(NSString *priceChange))completion {
+    NSString *apiKey = @"cro2rthr01qv7t46ovogcro2rthr01qv7t46ovp0";
+    NSString *urlString = [NSString stringWithFormat:@"https://finnhub.io/api/v1/quote?symbol=%@&token=%@", stockName, apiKey];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *priceChange = @"Change not available";
+        if (data && !error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSNumber *currentPrice = json[@"c"];
+            NSNumber *previousClose = json[@"pc"];
+            if (currentPrice && previousClose) {
+                double change = [currentPrice doubleValue] - [previousClose doubleValue];
+                double percentChange = (change / [previousClose doubleValue]) * 100.0;
+                            
+                // Determine the sign
+                NSString *sign = @"";
+                if (change > 0) {
+                    sign = @"+";
+                } else if (change < 0) {
+                    sign = @"-";
+                }
+                
+                // Use absolute values to avoid double signs
+                double absChange = fabs(change);
+                double absPercentChange = fabs(percentChange);
+                
+                // Format the string to "0.00 (0.00%)"
+                priceChange = [NSString stringWithFormat:@"%@%.2f (%.2f%%)", sign, absChange, absPercentChange];
+            }
+        }
+        
+        // Call the completion handler on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(priceChange);
+            }
+        });
+    }];
+    [task resume];
+}
+
 @end
