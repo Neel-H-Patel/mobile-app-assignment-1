@@ -36,7 +36,7 @@ class TableViewController: UITableViewController {
         switch section {
         case 0:
             // need to set this equal to the number of stocks in stockNames array
-            return 3
+            return self.stockModel.numberOfStocks();
         case 1:
             // need to set this eqaul to number of sectors in sectors array
             return 3
@@ -55,12 +55,9 @@ class TableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StockNameCell", for: indexPath)
             
             
-            let names = ["AAPL", "NVDA", "META"]
-
-            if let name = names[indexPath.row] as? String {
-                cell.textLabel!.text = name
-            }
-            // Configure the cell...
+            let name = self.stockModel.getStockName(for: indexPath.row)
+            
+            cell.textLabel!.text = name
 
             return cell
         } else if indexPath.section == 1 {

@@ -57,6 +57,8 @@ class ViewController: UIViewController {
         self.stockModel.getStockFullName(withName: self.stockName) { stockFullName in
             self.StockNameLabel.text = stockFullName
             }
+        
+        self.StockProfileImageView.image = self.stockModel.getStockImage(withName: self.stockName)
     }
     
     @objc func timerCounter() -> Void

@@ -7,10 +7,18 @@
 
 #import "StockModel.h"
 
+@interface StockModel()
+
+@property (strong, nonatomic) NSArray* stockNames;
+@property (strong, nonatomic) NSDictionary* stockImagesDict;
+
+@end
+
 @implementation StockModel
 
 // need to synthesize property
 @synthesize stockNames = _stockNames;
+@synthesize stockImagesDict = _stockImagesDict;
 
 // creates a singleton class
 +(StockModel*)sharedInstance{
@@ -30,19 +38,46 @@
 -(NSArray*) stockNames{
     // if stockNames is not intialized, initialize it
     if (!_stockNames) {
-        // need to replace this with our stock names
-        _stockNames = @[@"Bill", @"Eric", @"Jeff"];
+        _stockNames = @[@"AAPL", @"AMZN", @"ADBE", @"COST", @"XOM", @"GOOGL", @"HD", @"JNJ", @"JPM", @"MA", @"META", @"MSFT", @"NVDA", @"TSLA", @"V"];
     }
     
     return _stockNames;
 }
 
--(UIImage*)getStockImageWithName:(NSString*)name{
-    UIImage* image = nil;
-    // as long as image named is valid, we will be able to load it in stockNames array
-    image = [UIImage imageNamed:name];
+-(NSDictionary*)stockImagesDict{
+    if(!_stockImagesDict){
+        _stockImagesDict = @{
+            @"AAPL":[UIImage imageNamed:@"Apple"],
+            @"AMZN":[UIImage imageNamed:@"Amazon"],
+            @"ADBE":[UIImage imageNamed:@"Adobe"],
+            @"COST":[UIImage imageNamed:@"Costco"],
+            @"XOM":[UIImage imageNamed:@"Exxon"],
+            @"GOOGL":[UIImage imageNamed:@"Google"],
+            @"HD":[UIImage imageNamed:@"Home Depot"],
+            @"JNJ":[UIImage imageNamed:@"Johnson&Johnson"],
+            @"JPM":[UIImage imageNamed:@"JPMorgan"],
+            @"MA":[UIImage imageNamed:@"Mastercard"],
+            @"META":[UIImage imageNamed:@"Meta"],
+            @"MSFT":[UIImage imageNamed:@"Microsoft"],
+            @"NVDA":[UIImage imageNamed:@"Nvidia"],
+            @"TSLA":[UIImage imageNamed:@"Tesla"],
+            @"V":[UIImage imageNamed:@"Visa"]
+        };
+    }
     
-    return image;
+    return _stockImagesDict;
+}
+
+-(NSInteger)numberOfStocks{
+    return self.stockNames.count;
+}
+
+-(NSString*)getStockNameForIndex:(NSInteger)index{
+    return self.stockNames[index];
+}
+
+-(UIImage*)getStockImageWithName:(NSString*)name{
+    return self.stockImagesDict[name];
 }
 
 - (void)getStockPriceWithName:(NSString *)stockName completion:(void (^)(NSString *stockPrice))completion {
