@@ -68,7 +68,28 @@ class ViewController: UIViewController {
     }
     
     @IBAction func RefreshButton(_ sender: Any) {
-        // refresh data and reload code here
+        self.stockModel.getStockPrice(withName: self.stockName) { stockPrice in
+            self.StockPriceLabel.text = stockPrice
+            }
+        
+        self.stockModel.getStockPriceChange(withName: self.stockName) { stockPriceChange in
+            self.StockPriceChangeLabel.text = stockPriceChange
+            
+            let firstChar = stockPriceChange.first!
+                    
+                    // Set color based on the first character
+                    if firstChar == "+" {
+                        self.StockPriceChangeLabel.textColor = .systemGreen
+                    } else if firstChar == "-" {
+                        self.StockPriceChangeLabel.textColor = .systemRed
+                    } else {
+                        // Optional: Handle cases where there's no sign (e.g., "0.00 (0.00%)")
+                        self.StockPriceChangeLabel.textColor = .black
+                    }
+            }
+        
+        // reset timer
+        self.timerCount = 0
     }
     
 
