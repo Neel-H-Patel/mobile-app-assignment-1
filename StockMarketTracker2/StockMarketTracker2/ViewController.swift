@@ -61,14 +61,11 @@ class ViewController: UIViewController {
             
             let firstChar = stockPriceChange.first!
                     
-                    // Set color based on the first character
-                    if firstChar == "+" {
-                        self.StockPriceChangeLabel.textColor = .systemGreen
-                    } else if firstChar == "-" {
+                    // Set color based on the first character, if it is negative make it red, otherwise green
+                    if firstChar == "-" {
                         self.StockPriceChangeLabel.textColor = .systemRed
                     } else {
-                        // Optional: Handle cases where there's no sign (e.g., "0.00 (0.00%)")
-                        self.StockPriceChangeLabel.textColor = .black
+                        self.StockPriceChangeLabel.textColor = .systemGreen
                     }
             }
         
@@ -96,15 +93,11 @@ class ViewController: UIViewController {
             
             let firstChar = stockPriceChange.first!
                     
-                    // Set color based on the first character
-                    if firstChar == "+" {
-                        self.StockPriceChangeLabel.textColor = .systemGreen
-                    } else if firstChar == "-" {
-                        self.StockPriceChangeLabel.textColor = .systemRed
-                    } else {
-                        // Optional: Handle cases where there's no sign (e.g., "0.00 (0.00%)")
-                        self.StockPriceChangeLabel.textColor = .black
-                    }
+            if firstChar == "-" {
+                self.StockPriceChangeLabel.textColor = .systemRed
+            } else {
+                self.StockPriceChangeLabel.textColor = .systemGreen
+            }
             }
         
         // reset timer

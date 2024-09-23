@@ -7,6 +7,12 @@
 
 import UIKit
 
+// got help on how to create light/dark mode switch from this very helpful youtube video, had to adapt it to work with current IOS versions though
+// https://www.youtube.com/watch?v=8hhG77-rS_A
+// and gained understanding on how to apply global stylings and how to correctly configure scenes and windows through these links
+// https://developer.apple.com/documentation/uikit/app_and_environment/scenes/
+// https://developer.apple.com/documentation/uikit/uinavigationcontroller
+
 class CustomNavigationViewController: UINavigationController {
 
     override func viewDidLoad() {
@@ -19,23 +25,19 @@ class CustomNavigationViewController: UINavigationController {
         // Create a bar button item with the switch
         let switchItem = UIBarButtonItem(customView: themeSwitch)
 
-        // Add the switch to the navigation bar of our table view controller
+        // Add the switch to the navigation bar of our table view controller (which is our top controller on the stack)
         topViewController?.navigationItem.rightBarButtonItem = switchItem
         
     }
 
     @objc func themeSwitchToggled(_ sender: UISwitch) {
+        // sets the background mode to dark if switch is on, otherwise light mode
         let style: UIUserInterfaceStyle = sender.isOn ? .dark : .light
 
-        // Iterate through all connected scenes
-        for scene in UIApplication.shared.connectedScenes {
-            // Ensure the scene is a UIWindowScene
-            if let windowScene = scene as? UIWindowScene {
-                // Iterate through all windows in the scene
-                for window in windowScene.windows {
-                    window.overrideUserInterfaceStyle = style
-                }
-            }
+        // since we only have one scene, we can access the window through that scene and set it to our current style
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                window.overrideUserInterfaceStyle = style
         }
     }
 }
