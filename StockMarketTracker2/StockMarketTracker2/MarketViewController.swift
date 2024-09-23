@@ -9,19 +9,16 @@ import UIKit
 
 class MarketViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    // MARK: - Outlets
     
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var newsHeadlineTextView: UITextView!
     @IBOutlet weak var newsSummaryTextView: UITextView!
     
-    // MARK: - Properties
     
     let pickerData = ["general", "forex", "crypto", "merger"]
     var marketNewsName = "general"
     let marketNewsModel = MarketNewsModel.sharedInstance()
     
-    // MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +30,11 @@ class MarketViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         // Select the default row
         categoryPicker.selectRow(0, inComponent: 0, animated: false)
         
-        // Load the initial article
+        // Load the initial article (will be from 'general' category because that is the default)
         loadArticle()
     }
     
-    // MARK: - Actions
-    
+    // for the segmented control, adjusts the size of the text in the article summary
     @IBAction func ChangeTextSizeSegmentedControl(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
         switch selectedIndex {
@@ -53,18 +49,15 @@ class MarketViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
     
-    // MARK: - Helper Methods
-    
+    // helper method to load the first article returned 
     func loadArticle() {
         marketNewsModel.getNewsArticle(withCategoryName: marketNewsName) { article in
-            DispatchQueue.main.async {
                 if let article = article,
                    let headline = article["headline"] as? String,
                    let summary = article["summary"] as? String {
                     self.newsHeadlineTextView.text = headline
                     self.newsSummaryTextView.text = summary
                 }
-            }
         }
     }
     
@@ -84,9 +77,9 @@ class MarketViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         return pickerData[row]
     }
 
+    // loads the article for whatever category that the user is currently on
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let selectedOption = pickerData[row]
-        print("Selected: \(selectedOption)")
         self.marketNewsName = selectedOption
         self.loadArticle()
     }

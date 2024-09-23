@@ -80,30 +80,43 @@
     return self.stockImagesDict[name];
 }
 
+// Needed to learn how to use the finnhub API in objective C, but could not find any documentation for it on the website or anywhere else on the web, so this is the prompt I entered into ChatGPT to get assistance on how to call the API in objective C: "How do I call the finnhub API in objective C if I want to input the stock name and get the stock price"
+// from that, I was able to learn how to use the NSURL and tasks to carry out the API call and used that to create all methods listed here and the method in the MarketNewsModel
+// also for testing purposes, I left my apiKey in here so that whoever is testing this can run the app without needing to create a finnhub account
+// also learned about completion and how it basically runs after the API call is returned
+
 - (void)getStockPriceWithName:(NSString *)stockName completion:(void (^)(NSString *stockPrice))completion {
+    // formats the API URL call and converts to an NSURL object for use during the HTTP request
     NSString *apiKey = @"cro2rthr01qv7t46ovogcro2rthr01qv7t46ovp0";
     NSString *urlString = [NSString stringWithFormat:@"https://finnhub.io/api/v1/quote?symbol=%@&token=%@", stockName, apiKey];
     NSURL *url = [NSURL URLWithString:urlString];
 
-    // Create a data task
+    // Create a data task that receives, the data received by the server (data), the metadata and status code (response), and an error if the request fails(error)
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+        
+        // sets a default value for the stockPrice that we will later return
         NSString *stockPrice = @"Price not available";
+        
+        // converts our json data into an NSDictionary for access to its contents
         if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             NSNumber *currentPrice = json[@"c"];
             
+            // formats our price to have two decimal places
             if (currentPrice) {
                 stockPrice = [NSString stringWithFormat:@"$%.2f", [currentPrice doubleValue]];
             }
         }
 
-        // Call the completion handler on the main thread
+        // we call this so that the UI updates occur properly on the main thread, the if block for the completion makes sure to only call the block when it is not equal to nil
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) {
                 completion(stockPrice);
             }
         });
     }];
+    
+    // this is necessary because tasks are in a suspended state until you call this to initiate the network request
     [task resume];
 }
 
@@ -112,34 +125,28 @@
     NSString *urlString = [NSString stringWithFormat:@"https://finnhub.io/api/v1/quote?symbol=%@&token=%@", stockName, apiKey];
     NSURL *url = [NSURL URLWithString:urlString];
     
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSString *priceChange = @"Change not available";
-        if (data && !error) {
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * response, NSError * error) {
+        
+        NSString *priceChange = @"Price change not available";
+        
+        if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            
             NSNumber *currentPrice = json[@"c"];
             NSNumber *previousClose = json[@"pc"];
+            
+            // calculate what the dollar amount change and the percent change are
             if (currentPrice && previousClose) {
+                
+                // have to convert from NSNumber to a double
                 double change = [currentPrice doubleValue] - [previousClose doubleValue];
                 double percentChange = (change / [previousClose doubleValue]) * 100.0;
-                            
-                // Determine the sign
-                NSString *sign = @"";
-                if (change > 0) {
-                    sign = @"+";
-                } else if (change < 0) {
-                    sign = @"-";
-                }
                 
-                // Use absolute values to avoid double signs
-                double absChange = fabs(change);
-                double absPercentChange = fabs(percentChange);
-                
-                // Format the string to "0.00 (0.00%)"
-                priceChange = [NSString stringWithFormat:@"%@%.2f (%.2f%%)", sign, absChange, absPercentChange];
+                // Format the price change string to "0.00 (0.00%)"
+                priceChange = [NSString stringWithFormat:@"%.2f (%.2f%%)", change, percentChange];
             }
         }
         
-        // Call the completion handler on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) {
                 completion(priceChange);
@@ -154,14 +161,13 @@
     NSString *urlString = [NSString stringWithFormat:@"https://finnhub.io/api/v1/stock/profile2?symbol=%@&token=%@", stockName, apiKey];
     NSURL *url = [NSURL URLWithString:urlString];
     
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSString *stockFullName = @"Name not available";
-        if (data && !error) {
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * response, NSError * error) {
+        NSString *stockFullName = @"Stock Name not available";
+        if (data) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             stockFullName = json[@"name"];
         }
         
-        // Call the completion handler on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) {
                 completion(stockFullName);
