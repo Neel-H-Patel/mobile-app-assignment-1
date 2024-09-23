@@ -94,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="-844" y="-2"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation View Controller-->
         <scene sceneID="QK1-gk-IDb">
             <objects>
-                <navigationController id="xAT-V3-uMj" sceneMemberID="viewController">
+                <navigationController id="xAT-V3-uMj" customClass="CustomNavigationViewController" customModule="StockMarketTracker2" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ILf-kW-2Ie">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

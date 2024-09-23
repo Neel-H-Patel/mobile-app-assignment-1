@@ -63,14 +63,7 @@ class TableViewController: UITableViewController {
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MarketInfoCell", for: indexPath)
             
-            
-            let names = ["Market News"]
-
-            // need to pass in the market sector names, we might need to create a new model for market info, not sure right now but may be a good idea to keep code clean
-            if let name = names[indexPath.row] as? String {
-                cell.textLabel!.text = name
-            }
-            // Configure the cell...
+            cell.textLabel!.text = "Market News"
 
             return cell
         }
@@ -134,13 +127,6 @@ class TableViewController: UITableViewController {
                 // to ViewController class as needed
             vc.stockName = name
         }
-        
-        if let mvc = segue.destination as? MarketViewController,
-           let cell = sender as? UITableViewCell,
-           let name = cell.textLabel?.text {
-            mvc.marketNewsName = name
-        }
-        
     }
 
 }
