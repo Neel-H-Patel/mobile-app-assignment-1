@@ -39,7 +39,7 @@ class TableViewController: UITableViewController {
             return self.stockModel.numberOfStocks();
         case 1:
             // need to set this eqaul to number of sectors in sectors array
-            return 3
+            return 4
         case 2:
             // just the About page cell. Always 1
             return 1
@@ -64,7 +64,7 @@ class TableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MarketInfoCell", for: indexPath)
             
             
-            let names = ["technology", "business", "top news"]
+            let names = ["general", "forex", "crypto", "merger"]
 
             // need to pass in the market sector names, we might need to create a new model for market info, not sure right now but may be a good idea to keep code clean
             if let name = names[indexPath.row] as? String {
@@ -133,6 +133,12 @@ class TableViewController: UITableViewController {
                 // make calls and set properties
                 // to ViewController class as needed
             vc.stockName = name
+        }
+        
+        if let mvc = segue.destination as? MarketViewController,
+           let cell = sender as? UITableViewCell,
+           let name = cell.textLabel?.text {
+            mvc.marketNewsName = name
         }
         
     }

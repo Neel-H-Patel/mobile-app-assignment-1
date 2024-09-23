@@ -269,31 +269,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5u-PD-rHP">
-                                <rect key="frame" x="159" y="408.66666666666669" width="75" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                            </button>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o2u-dI-Lky">
+                                <rect key="frame" x="36" y="103" width="320" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Hk0-gR-8QM" id="9CX-N5-IJk"/>
+                                    <outlet property="delegate" destination="Hk0-gR-8QM" id="f6r-rN-Saj"/>
+                                </connections>
+                            </pickerView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbk-GU-m5z">
+                                <rect key="frame" x="36" y="327" width="320" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="PKE-91-Ulw"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6j-OG-AV1">
+                                <rect key="frame" x="36" y="504" width="320" height="219"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="219" id="RbN-ou-oQH"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WDO-gD-Cvm">
+                                <rect key="frame" x="131" y="787" width="131" height="32"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <connections>
+                                    <action selector="ChangeText:" destination="Hk0-gR-8QM" eventType="valueChanged" id="T28-pD-0aU"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Lw5-6Q-Nv7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="h5u-PD-rHP" firstAttribute="centerY" secondItem="jPw-6p-BYP" secondAttribute="centerY" id="C5e-pF-KQe"/>
-                            <constraint firstItem="h5u-PD-rHP" firstAttribute="centerX" secondItem="jPw-6p-BYP" secondAttribute="centerX" id="QNw-ys-DcA"/>
+                            <constraint firstItem="o2u-dI-Lky" firstAttribute="top" secondItem="Lw5-6Q-Nv7" secondAttribute="top" id="2go-OA-OV8"/>
+                            <constraint firstItem="vbk-GU-m5z" firstAttribute="leading" secondItem="o2u-dI-Lky" secondAttribute="leading" id="3Ed-4M-fLZ"/>
+                            <constraint firstItem="vbk-GU-m5z" firstAttribute="trailing" secondItem="u6j-OG-AV1" secondAttribute="trailing" id="GrC-Sz-esn"/>
+                            <constraint firstItem="o2u-dI-Lky" firstAttribute="leading" secondItem="Lw5-6Q-Nv7" secondAttribute="leading" constant="36" id="HNv-sv-Tz2"/>
+                            <constraint firstItem="o2u-dI-Lky" firstAttribute="centerX" secondItem="jPw-6p-BYP" secondAttribute="centerX" id="LtH-VV-tC8"/>
+                            <constraint firstItem="WDO-gD-Cvm" firstAttribute="top" secondItem="u6j-OG-AV1" secondAttribute="bottom" constant="64" id="RbV-Jf-vHr"/>
+                            <constraint firstItem="u6j-OG-AV1" firstAttribute="top" secondItem="vbk-GU-m5z" secondAttribute="bottom" constant="49" id="W2Z-Ui-DcS"/>
+                            <constraint firstItem="vbk-GU-m5z" firstAttribute="leading" secondItem="u6j-OG-AV1" secondAttribute="leading" id="YFB-G3-2fF"/>
+                            <constraint firstItem="vbk-GU-m5z" firstAttribute="centerX" secondItem="WDO-gD-Cvm" secondAttribute="centerX" id="pnq-cd-IrJ"/>
+                            <constraint firstItem="vbk-GU-m5z" firstAttribute="top" secondItem="o2u-dI-Lky" secondAttribute="bottom" constant="8" id="uEn-Xv-iu9"/>
+                            <constraint firstItem="vbk-GU-m5z" firstAttribute="trailing" secondItem="o2u-dI-Lky" secondAttribute="trailing" id="vxl-6x-yQp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="t51-OA-emh"/>
                     <connections>
-                        <outlet property="marketViewButton" destination="h5u-PD-rHP" id="xOS-Rt-hgV"/>
+                        <outlet property="CategoryPicker" destination="o2u-dI-Lky" id="ReP-zg-MzE"/>
+                        <outlet property="categoryPicker" destination="o2u-dI-Lky" id="p0I-aG-ObF"/>
+                        <outlet property="newsHeadlineTextView" destination="vbk-GU-m5z" id="5HP-M0-EuD"/>
+                        <outlet property="newsSummaryTextView" destination="u6j-OG-AV1" id="XYP-hX-GFR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gmK-fb-Flm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47" y="746"/>
+            <point key="canvasLocation" x="46.564885496183201" y="745.77464788732402"/>
         </scene>
     </scenes>
     <resources>
         <image name="arrow.clockwise" catalog="system" width="110" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

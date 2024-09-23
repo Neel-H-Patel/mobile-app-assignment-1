@@ -7,23 +7,57 @@
 
 import UIKit
 
-class MarketViewController: UIViewController {
+class MarketViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    lazy var stockModel = {
-        return StockModel.sharedInstance()
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedOption = pickerData[row]
+        print("Selected: \(selectedOption)")
+        // this is where we will proceed to the next page
+    }
+    
+    
+    lazy var marketNewsModel = {
+        return MarketNewsModel.sharedInstance()
     }()
     
-    var stockName = "error loading stock info"
+    var marketNewsName = "error loading news info"
+    var newsSummaryInfo = "no summary found"
 
-    @IBOutlet weak var marketViewButton: UIButton!
+    @IBOutlet weak var categoryPicker: UIPickerView!
+    
+    @IBOutlet weak var newsHeadlineTextView: UITextView!
+    
+    @IBOutlet weak var newsSummaryTextView: UITextView!
+    
+    @IBAction func ChangeText(_ sender: Any) {
+    }
+    let pickerData = ["Technology", "Business", "Top News"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.stockModel.getStockPrice(withName: self.stockName) { stockPrice in
-            self.marketViewButton.titleLabel?.text = stockPrice
+        self.marketNewsModel.getNewsArticle(withCategoryName: self.marketNewsName) { article in
+            DispatchQueue.main.async {
+                if let article = article,
+                   let headline = article["headline"] as? String,
+                   let summary = article["summary"] as? String {
+                    self.newsHeadlineTextView.text = headline
+                    self.newsSummaryTextView.text = summary
+                }
             }
-        
-        // Do any additional setup after loading the view.
+        }
     }
     
 
