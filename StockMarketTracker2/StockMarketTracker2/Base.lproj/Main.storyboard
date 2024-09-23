@@ -6,10 +6,11 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Stocks-->
+        <!--Home-->
         <scene sceneID="mAb-pY-lih">
             <objects>
                 <tableViewController id="bhe-dM-lQ7" customClass="TableViewController" customModule="StockMarketTracker2" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,6 +82,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Tuv-Ek-V0m" kind="show" id="2t1-nB-YgA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -88,7 +92,7 @@
                             <outlet property="delegate" destination="bhe-dM-lQ7" id="Gcc-KJ-FBe"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Stocks" id="KEi-ie-VVk"/>
+                    <navigationItem key="navigationItem" title="Home" id="KEi-ie-VVk"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J2n-dC-bjA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -258,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46.564885496183201" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="19" y="-581"/>
         </scene>
         <!--Market View Controller-->
         <scene sceneID="0gr-P6-oNS">
@@ -335,7 +339,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gmK-fb-Flm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46.564885496183201" y="745.77464788732402"/>
+            <point key="canvasLocation" x="47" y="108"/>
+        </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="01X-Cd-DHo">
+            <objects>
+                <collectionViewController id="Tuv-Ek-V0m" customClass="CollectionViewController" customModule="StockMarketTracker2" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Bqe-X0-pUU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="05h-ZQ-Dhn">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomCell" id="uyM-OC-3cj" customClass="CollectionViewCell" customModule="StockMarketTracker2" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mMP-Qz-NzZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Ewh-BC-cHu">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Ewh-BC-cHu" secondAttribute="trailing" id="DDQ-kE-pVa"/>
+                                        <constraint firstItem="Ewh-BC-cHu" firstAttribute="leading" secondItem="mMP-Qz-NzZ" secondAttribute="leading" id="R5z-cH-ZZu"/>
+                                        <constraint firstAttribute="bottom" secondItem="Ewh-BC-cHu" secondAttribute="bottom" id="Uho-kv-Yil"/>
+                                        <constraint firstItem="Ewh-BC-cHu" firstAttribute="top" secondItem="mMP-Qz-NzZ" secondAttribute="top" id="vzz-zb-joQ"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="imageView" destination="Ewh-BC-cHu" id="bSz-97-0Gh"/>
+                                    <segue destination="LU8-iq-BcB" kind="show" id="rxS-Ug-YF4"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Tuv-Ek-V0m" id="bgM-4y-QBe"/>
+                            <outlet property="delegate" destination="Tuv-Ek-V0m" id="PPQ-mz-FgJ"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="iNV-XX-dqt"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dSy-9s-ZPn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="25.190839694656489" y="800"/>
+        </scene>
+        <!--Image Viewer View Controller-->
+        <scene sceneID="BCL-TO-qWV">
+            <objects>
+                <viewController id="LU8-iq-BcB" customClass="ImageViewerViewController" customModule="StockMarketTracker2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cXA-14-7un">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GnX-ab-nQP">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="erE-I1-mpi"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="1RI-Nu-qQx"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="StG-Uo-ZaG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="GnX-ab-nQP" firstAttribute="bottom" secondItem="StG-Uo-ZaG" secondAttribute="bottom" id="Pva-Kp-p3Y"/>
+                            <constraint firstItem="GnX-ab-nQP" firstAttribute="trailing" secondItem="StG-Uo-ZaG" secondAttribute="trailing" id="RJ6-5f-5aH"/>
+                            <constraint firstItem="GnX-ab-nQP" firstAttribute="top" secondItem="StG-Uo-ZaG" secondAttribute="top" id="aUI-J4-TlW"/>
+                            <constraint firstItem="GnX-ab-nQP" firstAttribute="leading" secondItem="StG-Uo-ZaG" secondAttribute="leading" id="neW-WS-Kou"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uvJ-qi-BsK"/>
+                    <connections>
+                        <outlet property="scrollView" destination="GnX-ab-nQP" id="4IB-fq-8v6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zyw-5X-Lca" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="849.61832061068696" y="800"/>
         </scene>
     </scenes>
     <resources>
