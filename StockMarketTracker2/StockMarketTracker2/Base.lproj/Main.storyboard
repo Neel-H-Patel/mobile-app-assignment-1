@@ -284,7 +284,7 @@
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6j-OG-AV1">
@@ -299,13 +299,14 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WDO-gD-Cvm">
-                                <rect key="frame" x="131" y="787" width="131" height="32"/>
+                                <rect key="frame" x="93.666666666666686" y="787" width="206" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Small"/>
+                                    <segment title="Medium"/>
+                                    <segment title="Large"/>
                                 </segments>
                                 <connections>
-                                    <action selector="ChangeText:" destination="Hk0-gR-8QM" eventType="valueChanged" id="T28-pD-0aU"/>
+                                    <action selector="ChangeTextSizeSegmentedControl:" destination="Hk0-gR-8QM" eventType="valueChanged" id="cNy-r0-Zsv"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
@@ -330,7 +331,7 @@
                         <outlet property="CategoryPicker" destination="o2u-dI-Lky" id="ReP-zg-MzE"/>
                         <outlet property="categoryPicker" destination="o2u-dI-Lky" id="p0I-aG-ObF"/>
                         <outlet property="newsHeadlineTextView" destination="vbk-GU-m5z" id="5HP-M0-EuD"/>
-                        <outlet property="newsSummaryTextView" destination="u6j-OG-AV1" id="XYP-hX-GFR"/>
+                        <outlet property="newsSummaryTextView" destination="u6j-OG-AV1" id="z8z-WM-tre"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gmK-fb-Flm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

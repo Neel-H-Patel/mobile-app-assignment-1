@@ -38,8 +38,8 @@ class TableViewController: UITableViewController {
             // need to set this equal to the number of stocks in stockNames array
             return self.stockModel.numberOfStocks();
         case 1:
-            // need to set this eqaul to number of sectors in sectors array
-            return 4
+            // just the connection to Market News page cell. Always 1
+            return 1
         case 2:
             // just the About page cell. Always 1
             return 1
@@ -64,7 +64,7 @@ class TableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MarketInfoCell", for: indexPath)
             
             
-            let names = ["general", "forex", "crypto", "merger"]
+            let names = ["Market News"]
 
             // need to pass in the market sector names, we might need to create a new model for market info, not sure right now but may be a good idea to keep code clean
             if let name = names[indexPath.row] as? String {
