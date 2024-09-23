@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         return StockModel.sharedInstance()
     }()
     
-    
+    // stock details UI elements
     @IBOutlet weak var StockNameLabel: UILabel!
     @IBOutlet weak var StockSymbolLabel: UILabel!
     @IBOutlet weak var StockProfileImageView: UIImageView!
@@ -23,19 +23,37 @@ class ViewController: UIViewController {
     @IBOutlet weak var StockPriceChangeLabel: UILabel!
     @IBOutlet weak var TimerLabel: UILabel!
     
+    // share multiplier UI elements
+    @IBOutlet weak var ShareCountLabel: UILabel!
+    @IBOutlet weak var ShareMultiplierLabel: UILabel!
+    @IBOutlet weak var ShareCountSlider: UISlider!
+    @IBOutlet weak var ShareCountStepper: UIStepper!
+    
+    // variables for time since last update timer
     var timer:Timer = Timer()
     var timerCount:Int = 0
     
+    // current stock
     var stockName = "error loading stock info"
+    
+    // variable for share mutliplier
+    var shareCount:Int = 1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
         
+        // start timer
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+        self.shareCount = 1; // for share multiplier
+        
+        // set stock symbol label
+        self.StockSymbolLabel.text = self.stockName
+        
+        // asynchronous closure to update UI related to stock price
         self.stockModel.getStockPrice(withName: self.stockName) { stockPrice in
             self.StockPriceLabel.text = stockPrice
-            self.StockSymbolLabel.text = self.stockName
+            self.updateShareMultiplier() // also update the share multiplier text at the bottom of the screen
             }
         
         self.stockModel.getStockPriceChange(withName: self.stockName) { stockPriceChange in
@@ -67,9 +85,10 @@ class ViewController: UIViewController {
         TimerLabel.text = String(timerCount)+"s"
     }
     
-    @IBAction func RefreshButton(_ sender: Any) {
+    @IBAction func handleRefreshButtonClick(_ sender: Any) {
         self.stockModel.getStockPrice(withName: self.stockName) { stockPrice in
             self.StockPriceLabel.text = stockPrice
+            self.updateShareMultiplier() // also update the share multiplier text at the bottom of the screen
             }
         
         self.stockModel.getStockPriceChange(withName: self.stockName) { stockPriceChange in
@@ -93,6 +112,37 @@ class ViewController: UIViewController {
     }
     
 
-
+    @IBAction func handleShareCountSliderChange(_ sender: Any) {
+        if let slider = sender as? UISlider {
+            shareCount = Int(slider.value)
+            ShareCountStepper.value = Double(shareCount)
+            updateShareMultiplier()
+        }
+    }
+    
+    @IBAction func handleShareCountStepperChange(_ sender: Any) {
+        if let stepper = sender as? UIStepper {
+            shareCount = Int(stepper.value)
+            ShareCountSlider.value = Float(shareCount)
+            updateShareMultiplier()
+        }
+    }
+    
+    func updateShareMultiplier(){
+        ShareCountLabel.text = String(shareCount) + " shares"
+        if let currStockPriceText = StockPriceLabel.text?.dropFirst().description,
+           let currStockPrice = Double(currStockPriceText) {
+            
+            let multipliedShareValue = String(format:"%.2f", Double(shareCount) * currStockPrice)
+            let formattedStockPrice = String(format:"%.2f", currStockPrice)
+            
+            ShareMultiplierLabel.text = "\(shareCount) shares @ $\(formattedStockPrice) = $\(multipliedShareValue)"
+        }
+        else {
+            print("Failed to update share multiplier")
+        }
+    }
+    
+    
 }
 
